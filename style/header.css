@@ -1,0 +1,45 @@
+
+/* -- HEADER Styles -- */
+
+.header {
+  padding: 12px;
+  padding-bottom: 48px;
+  background-color: gray;
+}
+
+.header-button {
+
+}
+
+.header-button.menu {
+
+}
+
+.header-button.social-media {
+  
+}
+
+.header-section {
+  width: fit-content;
+  margin: 0px auto;
+  margin-top: 24px;
+}
+
+.header-section .header-button.menu {
+  display: none;
+}
+
+@media screen and (max-width: 360px) {
+
+  /* Display header section menu button */
+  .header-section .header-button.menu {
+    display: block;
+  }
+
+  /* Hides header top menu button */
+  .header > .header-button.menu {
+    display: none;
+  }
+}
+
+/* --- */
