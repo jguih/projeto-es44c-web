@@ -1,43 +1,32 @@
 
-/* -- HEADER Styles -- */
+/* -- Header Styles -- */
 
 .header {
   padding: 12px;
   padding-bottom: 48px;
-  background-color: gray;
-}
-
-.header-button {
-
-}
-
-.header-button.menu {
-
-}
-
-.header-button.social-media {
-  
+  background-color: var(--primary-500);
 }
 
 .header-section {
+  display: block;
   width: fit-content;
   margin: 0px auto;
   margin-top: 24px;
 }
 
-.header-section .header-button.menu {
+.header-section .button {
   display: none;
 }
 
 @media screen and (max-width: 360px) {
 
   /* Display header section menu button */
-  .header-section .header-button.menu {
+  .header-section .button {
     display: block;
   }
 
   /* Hides header top menu button */
-  .header > .header-button.menu {
+  .header > .button {
     display: none;
   }
 }

@@ -1,0 +1,60 @@
+
+/* -- Sidebar Styles -- */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  height: 100%;
+  width: 0px;
+  box-sizing: border-box;
+  background-color: var(--primary-900);
+  overflow: hidden;
+  transition: var(--trasition);
+  box-shadow: var(--box-shadow); 
+}
+
+.sidebar-top {
+  padding: 20px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} 
+
+.sidebar-title {
+  color: white;
+}
+
+.sidebar-close-btn {
+  background-color: transparent;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+}
+
+.sidebar-close-btn:hover {
+  background-color: var(--primary-800);
+}
+
+.sidebar-content {
+  height: 100%;
+  background-color: var(--primary-500);
+}
+
+.sidebar nav a {
+  cursor: pointer;
+  display: block;
+  padding-left: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.sidebar nav a:hover {
+  background-color: var(--primary-600);
+}
+
+/* --- */

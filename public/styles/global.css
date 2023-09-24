@@ -1,0 +1,43 @@
+@import url("./_header.css");
+@import url("./_typography.css");
+@import url("./components/_sidebar.css");
+
+*{
+  --trasition: .3s;
+  --box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.6);
+  --primary-500: #9E9E9E;
+  --primary-600: #757575;
+  --primary-700: #616161;
+  --primary-800: #424242;
+  --primary-900: #212121;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  transition: var(--trasition);
+}
+
+html {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.button {
+  padding: 4px 6px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 25
+}
