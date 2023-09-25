@@ -31,4 +31,28 @@
   background-color: var(--primary-800);
 }
 
+@media screen and (max-width: 1200px) {
+
+  .dialog {
+    width: 60%;
+  }
+
+}
+
+@media screen and (max-width: 940px) {
+  
+  .dialog {
+    width: 80%;
+  }
+
+}
+
+@media screen and (max-width: 360px) {
+
+  .dialog {
+    width: 100%;
+  }
+
+}
+
 /* --- */

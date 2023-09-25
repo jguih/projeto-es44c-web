@@ -42,8 +42,10 @@
 }
 
 .post-title {
+  margin-right: 32px;
   font-weight: bold;
   text-wrap: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
@@ -57,6 +59,21 @@
 
 .post-separator {
   margin: 0;
+  border: solid var(--primary-600) 2px;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 360px) {
+
+  .posts-container {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .post {
+    margin: 16px 0;
+  }
+
 }
 
 /* --- */

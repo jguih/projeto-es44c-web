@@ -13,11 +13,14 @@ export const POST_FORM_DIALOG_ACTIONS = {
  */
 
 /**
- * 
- * @param {HTMLDialogElement} dialog 
- * @returns {PostFormDialogHandler}
+ * Used to manipulate the post creation dialog
+ * @param {HTMLElement | null} dialog 
+ * @returns {PostFormDialogHandler | undefined}
  */
 export const usePostFormDialog = (dialog) => {
+
+  if (!dialog) return;
+  if (!(dialog instanceof HTMLDialogElement)) return;
 
   const close = () => dialog.close();
   const showModal = () => dialog.showModal();

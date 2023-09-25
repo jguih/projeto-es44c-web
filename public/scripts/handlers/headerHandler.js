@@ -11,14 +11,18 @@
  */
 
 /**
- * 
- * @param {HTMLElement} header - Header HTML Element
+ * Used to manipulate app's header
+ * @param {HTMLElement | null} header - Header HTML Element
  * @param {useHeaderArgs} args - Optional arguments
- * @returns {HeaderHandler}
+ * @returns {HeaderHandler | undefined}
  */
 export const useHeader = (header, { 
   onBtnClick, 
 } = {}) => {
+
+  if (!header) return;
+  if (!(header instanceof HTMLElement)) return;
+
   const headerButtons = header.getElementsByClassName("button");
 
   for (let i = 0; i < headerButtons.length; i++) {
