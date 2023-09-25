@@ -1,17 +1,20 @@
 //@ts-check
 import { useHeader } from "./handlers/headerHandler.js";
+import { usePostFormDialog } from "./handlers/postFormDialogHandler.js";
 import { useSidebar } from "./handlers/sidebarHandler.js";
 import { navItems } from "./sidebarNavItems.js";
 
-const homeSidebar = document.getElementById("home-sidebar");
-const homeSidebarHandler = homeSidebar ?
-  useSidebar(homeSidebar, { shouldFocus: true }) : undefined;
+const homeSidebarHandler =
+  useSidebar(document.getElementById("home-sidebar"), { 
+    shouldFocus: true,
+    width: "300px",
+    minWidthToFullScreen: 360, 
+  });
 homeSidebarHandler?.setNavItems(navItems);
 
-const homeHeader = document.getElementById("home-header");
-const homeHeaderHandler = homeHeader ?
+const homeHeaderHandler =
   useHeader(
-    homeHeader,
+    document.getElementById("home-header"),
     {
       onBtnClick: (event) => {
         event.currentTarget instanceof HTMLElement ?
@@ -20,9 +23,13 @@ const homeHeaderHandler = homeHeader ?
           undefined
       }
     }
-  ) : undefined;
+  );
+
+const homePostFormDialogHandler = 
+  usePostFormDialog(document.getElementById("post-form-dialog"));
 
 export {
   homeSidebarHandler, 
-  homeHeaderHandler
+  homeHeaderHandler,
+  homePostFormDialogHandler,
 }

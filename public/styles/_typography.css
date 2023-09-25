@@ -1,22 +1,53 @@
 
 /* -- Typography Styles -- */
 
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
 .button-text {
   font-size: 1.2rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   font-weight: normal;
   margin: 0;
   padding: 0;
 }
 
+a, p {
+  font-size: 1.2rem;
+}
+
 h1 {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
 }
 
 h2 {
+  font-size: 2.4rem;
+}
+
+h3 {
   font-size: 2.0rem;
+}
+
+@media screen and (max-width: 360px) {
+
+  a, p, .button-text {
+    font-size: 1.1rem;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+  
+  h2 {
+    font-size: 2.0rem;
+  }
+  
+  h3 {
+    font-size: 1.6rem;
+  }
 }
 
 /* --- */

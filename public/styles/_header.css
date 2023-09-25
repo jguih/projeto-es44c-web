@@ -1,45 +1,67 @@
-
 /* -- Header Styles -- */
 
 .header {
   padding: 12px;
   padding-bottom: 48px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
   background-color: var(--primary-500);
   box-shadow: var(--box-shadow);
 }
 
-.header button {
+.header .button {
+  order: 1;
+  margin-right: auto;
   background-color: var(--primary-500);
-  font-size: 1.0rem;
   border: solid var(--primary-600);
-  box-shadow: var(--btn-box-shadow);
 }
 
-.header button:hover {
+.header .button:hover {
   background-color: var(--primary-400);
 }
 
-.header-section {
-  display: block;
-  width: fit-content;
-  margin: 0px auto;
-  margin-top: 24px;
+.header h1 {
+  order: 2;
+  align-self: center;
 }
 
-.header-section .button {
-  display: none;
+.header nav {
+  order: 3;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.header-section nav a {
+  padding-top: 4px;
+  padding-right: 4px;
+  padding-left: 4px;
+  /* For some reason this is 4px bigger than it's 
+    content at the bottom so, no need for padding-bottom */
+  border-radius: 12px;
+}
+
+.header-section nav a:hover {
+  background-color: var(--primary-400);
 }
 
 @media screen and (max-width: 360px) {
 
-  /* Display header section menu button */
-  .header-section .button {
-    display: block;
+  .header {
+    padding-bottom: 24px;
   }
 
-  /* Hides header top menu button */
-  .header > .button {
-    display: none;
+  /* Changes flex order to display button in the middle */
+  .header h1 {
+    order: 1;
+  }
+
+  .header .button {
+    order: 2;
+    margin: 0 auto;
   }
 }
 

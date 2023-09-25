@@ -4,6 +4,7 @@
  * @typedef {object} BaseArgs
  * @prop {boolean} expandBody
  * @prop {boolean} shouldFocus
+ * @prop {number} [minWidthToFullScreen]
  */
 
 /**
@@ -17,6 +18,7 @@
  * @prop {boolean} [expandBody=false]
  * @prop {string} [width="250px"]
  * @prop {boolean} [shouldFocus=false]
+ * @prop {number} [minWidthToFullScreen]
  */
 
 /**
@@ -32,7 +34,6 @@
 /**
  * @typedef {object} NavItem
  * @prop {string} label
- * @prop {string} action
  * @prop {(event: MouseEvent) => void} onClick
 */
 
@@ -60,12 +61,17 @@ const hideOverlay = () => overlay?.style.setProperty("display", "none");
 const openSidebar = (sidebar, {
   expandBody,
   width,
+  minWidthToFullScreen,
   shouldFocus,
 }) => {
+  if (
+    minWidthToFullScreen &&
+    window.innerWidth <= minWidthToFullScreen
+  ) width = "100%";
   sidebar.style.width = width;
   sidebar.dataset.state = SIDEBAR_STATE.opened;
   if (shouldFocus) showOverlay();
-  if (expandBody) body.style.paddingLeft = width;
+  if (expandBody && width !== "100%") body.style.paddingLeft = width;
 }
 
 /**
@@ -141,41 +147,42 @@ const handleAction = (action, sidebar, args) => {
 const createNavItem = (navItem) => {
   const anchor = document.createElement("a");
   anchor.textContent = navItem.label;
-  anchor.setAttribute("data-action", navItem.action);
   anchor.onclick = navItem.onClick;
   return anchor;
 }
 
 /**
- * 
- * @param {HTMLElement} sidebar 
+ * Insert nav items inside the first nav of sidebar
+ * @param {HTMLElement} nav 
  * @param {NavItem[]} navItems 
  */
-const setNavItems = (sidebar, navItems) => {
-  const sidebarNav = sidebar.getElementsByTagName("nav");
-  for (let i = 0; i < sidebarNav.length; i++) {
-    const nav = sidebarNav.item(i);
-    if (nav) {
-      navItems.forEach((navItem) => {
-        nav.appendChild(createNavItem(navItem));
-      })
-    }
-  }
+const setNavItems = (nav, navItems) => {
+  navItems.forEach((navItem) => {
+    nav.appendChild(createNavItem(navItem));
+  })
 }
 
 /**
- * 
- * @param {HTMLElement} sidebar
+ * Used to manipulate app's sidebar
+ * @param {HTMLElement | null} sidebar
  * @param {useSidebarArgs} args
- * @returns {SidebarHandler}
+ * @returns {SidebarHandler | undefined}
  */
 export const useSidebar = (sidebar, {
   expandBody = false,
   width = "250px",
   shouldFocus = false,
+  minWidthToFullScreen,
 } = {}) => {
-  const args = { expandBody, width, shouldFocus };
-  
+
+  if (!sidebar) return;
+  if (!(sidebar instanceof HTMLElement)) return;
+
+  const args = { expandBody, width, shouldFocus, minWidthToFullScreen };
+  const navs = sidebar.getElementsByTagName("nav");
+  const hasNav = navs.length > 0;
+  const firstNav = hasNav ? navs.item(0) : undefined;
+
   // All <buttons/> inside the sidebar
   const sidebarBtns = sidebar.getElementsByTagName("button");
   for (let i = 0; i < sidebarBtns.length; i++) {
@@ -203,6 +210,7 @@ export const useSidebar = (sidebar, {
     closeSidebar: () => closeSidebar(sidebar, { ...args }),
     toggleSidebar: () => toggleSidebar(sidebar, { ...args }),
     handleAction: (action) => handleAction(action, sidebar, { ...args }),
-    setNavItems: (navItems) => setNavItems(sidebar, navItems),
+    setNavItems: (navItems) => 
+      firstNav ? setNavItems(firstNav, navItems) : null,
   };
 }

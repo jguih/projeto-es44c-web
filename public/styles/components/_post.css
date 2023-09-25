@@ -1,0 +1,79 @@
+
+/* -- Posts Styles -- */
+
+.posts-container {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.post {
+  display: block;
+  position: relative;
+  margin: 48px 0;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.post-delete-btn {
+  position: absolute;
+  background-color: transparent;
+  display: none;
+  padding: 6px;
+  border-radius: 12px;
+  border: none;
+  right: 12px;
+  top: 12px;
+}
+
+.post:hover .post-delete-btn {
+  display: block;
+}
+
+.post-delete-btn:hover {
+  background-color: var(--primary-600);
+}
+
+.post-delete-btn:active {
+  background-color: var(--red);
+}
+
+.post:hover {
+  background-color: var(--primary-500);
+}
+
+.post-title {
+  margin-right: 32px;
+  font-weight: bold;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-date {
+  margin: 14px 0px;
+}
+
+.post-description {
+  text-overflow: ellipsis;
+}
+
+.post-separator {
+  margin: 0;
+  border: solid var(--primary-600) 2px;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 360px) {
+
+  .posts-container {
+    width: 100%;
+    padding: 0 8px;
+  }
+
+  .post {
+    margin: 16px 0;
+  }
+
+}
+
+/* --- */

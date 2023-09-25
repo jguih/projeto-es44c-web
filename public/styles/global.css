@@ -1,8 +1,11 @@
-@import "./_header.css";
-@import "./_typography.css";
-@import "./components/_sidebar.css";
+@import url("./_header.css");
+@import url("./_typography.css");
+@import url("./components/_sidebar.css");
+@import url("./components/_dialog.css");
+@import url("./components/_post.css");
 
-*{
+* {
+  box-sizing: border-box;
   --trasition: .3s;
   --box-shadow: 4px 2px 16px rgba(0, 0, 0, 0.8);
   --btn-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -12,6 +15,9 @@
   --primary-700: #616161;
   --primary-800: #424242;
   --primary-900: #212121;
+  --red: red;
+  --green: green;
+  --yellow: yellow;
 }
 
 body {
@@ -28,9 +34,14 @@ a {
   text-decoration: none;
 }
 
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+
 button {
   cursor: pointer;
-  box-sizing: border-box;
   user-select: none;
 }
 
@@ -39,13 +50,23 @@ button {
 
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
+.button-close {
+  background-color: transparent;
+  padding: 4px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+}
+
+/* Params for material icons */
 .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 0,
-  'wght' 500,
-  'GRAD' 0,
-  'opsz' 25
+    'FILL' 0,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 25
 }

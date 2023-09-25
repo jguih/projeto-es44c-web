@@ -1,0 +1,58 @@
+
+/* -- Dialog Styles -- */
+
+.dialog {
+  background-color: var(--primary-500);
+  padding: 0px;
+  width: 40%;
+  border: none;
+  box-shadow: var(--box-shadow);
+}
+
+.dialog-top {
+  background-color: var(--primary-900);
+  padding: 20px;
+  color: white;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dialog-content {
+  padding: 20px;
+}
+
+.dialog-close-btn:hover {
+  background-color: var(--primary-700);
+}
+
+.dialog-close-btn:active {
+  background-color: var(--primary-800);
+}
+
+@media screen and (max-width: 1200px) {
+
+  .dialog {
+    width: 60%;
+  }
+
+}
+
+@media screen and (max-width: 940px) {
+  
+  .dialog {
+    width: 80%;
+  }
+
+}
+
+@media screen and (max-width: 360px) {
+
+  .dialog {
+    width: 100%;
+  }
+
+}
+
+/* --- */
