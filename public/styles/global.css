@@ -1,6 +1,6 @@
-@import url("./_header.css");
-@import url("./_typography.css");
-@import url("./components/_sidebar.css");
+@import "./_header.css";
+@import "./_typography.css";
+@import "./components/_sidebar.css";
 
 *{
   --trasition: .3s;
