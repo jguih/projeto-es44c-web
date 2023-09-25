@@ -1,8 +1,10 @@
 @import "./_header.css";
 @import "./_typography.css";
 @import "./components/_sidebar.css";
+@import "./components/_dialog.css";
 
 *{
+  box-sizing: border-box;
   --trasition: .3s;
   --box-shadow: 4px 2px 16px rgba(0, 0, 0, 0.8);
   --btn-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -28,9 +30,14 @@ a {
   text-decoration: none;
 }
 
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+}
+
 button {
   cursor: pointer;
-  box-sizing: border-box;
   user-select: none;
 }
 
@@ -42,6 +49,7 @@ button {
   gap: 4px;
 }
 
+/* Params for material icons */
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,

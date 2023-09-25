@@ -8,7 +8,6 @@
   z-index: 1;
   height: 100%;
   width: 0px;
-  box-sizing: border-box;
   background-color: var(--primary-900);
   overflow: hidden;
   transition: var(--trasition);
