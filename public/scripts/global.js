@@ -1,17 +1,28 @@
-import { useHeader } from "./header.js";
-import { useSidebar } from "./sidebar.js";
+//@ts-check
+import { useHeader } from "./handlers/headerHandler.js";
+import { useSidebar } from "./handlers/sidebarHandler.js";
+import { navItems } from "./sidebarNavItems.js";
 
-const homeSidebarHandler =
-  useSidebar(document.getElementById("home-sidebar"), {
-    expandBody: true,
-  });
+const homeSidebar = document.getElementById("home-sidebar");
+const homeSidebarHandler = homeSidebar ?
+  useSidebar(homeSidebar, { shouldFocus: true }) : undefined;
+homeSidebarHandler?.setNavItems(navItems);
 
-const homeHeaderHandler = useHeader(
-  document.getElementById("home-header"),
-  {
-    onBtnClick: (event) => {
-      homeSidebarHandler
-        .handleAction(event.currentTarget.dataset.action);
+const homeHeader = document.getElementById("home-header");
+const homeHeaderHandler = homeHeader ?
+  useHeader(
+    homeHeader,
+    {
+      onBtnClick: (event) => {
+        event.currentTarget instanceof HTMLElement ?
+          homeSidebarHandler
+            ?.handleAction(event.currentTarget.dataset.action) :
+          undefined
+      }
     }
-  }
-);
+  ) : undefined;
+
+export {
+  homeSidebarHandler, 
+  homeHeaderHandler
+}

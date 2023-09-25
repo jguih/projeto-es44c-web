@@ -5,6 +5,7 @@
   padding: 12px;
   padding-bottom: 48px;
   background-color: var(--primary-500);
+  box-shadow: var(--box-shadow);
 }
 
 .header-section {
