@@ -1,14 +1,20 @@
-
 /* -- Header Styles -- */
 
 .header {
   padding: 12px;
   padding-bottom: 48px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
   background-color: var(--primary-500);
   box-shadow: var(--box-shadow);
 }
 
 .header .button {
+  order: 1;
+  margin-right: auto;
   background-color: var(--primary-500);
   border: solid var(--primary-600);
 }
@@ -17,19 +23,13 @@
   background-color: var(--primary-400);
 }
 
-.header-section {
-  display: block;
-  width: fit-content;
-  margin: 0px auto;
-  margin-top: 24px;
+.header h1 {
+  order: 2;
+  align-self: center;
 }
 
-.header-section .button {
-  display: none;
-}
-
-.header-section nav {
-  margin-top: 12px;
+.header nav {
+  order: 3;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -50,14 +50,18 @@
 
 @media screen and (max-width: 360px) {
 
-  /* Display header section menu button */
-  .header-section .button {
-    display: block;
+  .header {
+    padding-bottom: 24px;
   }
 
-  /* Hides header top menu button */
-  .header > .button {
-    display: none;
+  /* Changes flex order to display button in the middle */
+  .header h1 {
+    order: 1;
+  }
+
+  .header .button {
+    order: 2;
+    margin: 0 auto;
   }
 }
 

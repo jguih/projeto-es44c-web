@@ -5,16 +5,16 @@
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   height: 100%;
   width: 0px;
-  background-color: var(--primary-900);
   overflow: hidden;
   transition: var(--trasition);
   box-shadow: var(--box-shadow); 
 }
 
 .sidebar-top {
+  background-color: var(--primary-900);
   padding: 20px;
   
   display: flex;
@@ -24,15 +24,6 @@
 
 .sidebar-title {
   color: white;
-}
-
-.sidebar-close-btn {
-  background-color: transparent;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  color: white;
-  border: none;
 }
 
 .sidebar-close-btn:hover {
@@ -74,6 +65,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);

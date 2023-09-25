@@ -32,7 +32,6 @@
 /**
  * @typedef {object} NavItem
  * @prop {string} label
- * @prop {string} action
  * @prop {(event: MouseEvent) => void} onClick
 */
 
@@ -141,7 +140,6 @@ const handleAction = (action, sidebar, args) => {
 const createNavItem = (navItem) => {
   const anchor = document.createElement("a");
   anchor.textContent = navItem.label;
-  anchor.setAttribute("data-action", navItem.action);
   anchor.onclick = navItem.onClick;
   return anchor;
 }
