@@ -8,6 +8,17 @@
   box-shadow: var(--box-shadow);
 }
 
+.header button {
+  background-color: var(--primary-500);
+  font-size: 1.0rem;
+  border: solid var(--primary-600);
+  box-shadow: var(--btn-box-shadow);
+}
+
+.header button:hover {
+  background-color: var(--primary-400);
+}
+
 .header-section {
   display: block;
   width: fit-content;
