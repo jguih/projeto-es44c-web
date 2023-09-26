@@ -10,8 +10,8 @@
   width: 0px;
   overflow: hidden;
   transition: var(--transition);
-  box-shadow: var(--box-shadow); 
-  background-color: var(--primary-500);
+  box-shadow: var(--box-shadow);
+  background-color: white; 
 }
 
 .sidebar-top {

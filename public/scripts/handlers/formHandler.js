@@ -1,5 +1,7 @@
 //@ts-check
 
+import { getField } from "../utils.js";
+
 /**
  * @typedef {object} useFormArgs
  * @prop {(data: FieldData[]) => void} [onSubmit]
@@ -153,5 +155,7 @@ export const useForm = (form, fields, {
     submit: () => submit(),
     reset: () => reset(),
     onSubmit: (/** @type {((data: FieldData[]) => void) | undefined} */ handler) => { onSubmit = handler },
+    getField: (/** @type {string} */ fieldName) => getField(fieldsData, fieldName),
+    fieldsData,
   }
 }

@@ -11,7 +11,7 @@ dialog[open] {
 
 .dialog {
   padding: 0px;
-  width: 40%;
+  width: 60%;
   border: none;
   box-shadow: var(--box-shadow);
 }
@@ -90,7 +90,7 @@ dialog[open] {
 @media screen and (max-width: 1200px) {
 
   .dialog {
-    width: 60%;
+    width: 70%;
   }
 
 }
