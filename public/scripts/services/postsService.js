@@ -15,7 +15,8 @@ export const PostsService = () => {
   const {
     setItem,
     getItem,
-    clear
+    clear,
+    getAll: lsGetAll,
   } = LocalStorageService();
 
   const getId = () => {
@@ -74,9 +75,19 @@ export const PostsService = () => {
     return false;
   }
 
+  /** @param {string} key */
+  const get = (key) => {
+    return getItem(key);
+  }
+
+  const getAll = () => {
+    return lsGetAll({excludeKey: "post-ids"});
+  }
+
   return {
     create,
     insert,
-    createAndInsert
+    createAndInsert,
+    getAll,
   }
 }

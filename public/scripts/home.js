@@ -9,7 +9,7 @@ import { PostsService } from "./services/postsService.js";
 
 /* -- Home page Handlers -- */
 
-const homeSidebarHandler =
+export const homeSidebarHandler =
   useSidebar(
     document.getElementById("home-sidebar"),
     {
@@ -19,16 +19,16 @@ const homeSidebarHandler =
     }
   );
 
-const homeHeaderHandler =
+export const homeHeaderHandler =
   useHeader(document.getElementById("home-header"));
 
-const createPostFormHandler =
+export const createPostFormHandler =
   useForm(
     document.getElementById("create-post-form"),
     createPostFormFields,
   );
 
-const homeCreatePostDialogHandler =
+export const homeCreatePostDialogHandler =
   useDialog(document.getElementById("create-post-form-dialog"));
 
 /* --- */
@@ -70,9 +70,3 @@ homeCreatePostDialogHandler
   })
 
 /* --- */
-
-export {
-  homeSidebarHandler,
-  homeHeaderHandler,
-  homeCreatePostDialogHandler,
-}

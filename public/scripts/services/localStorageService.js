@@ -20,9 +20,25 @@ export const LocalStorageService = () => {
 
   const clear = () => localStorage.clear();
 
+  const getAll = ({excludeKey = ""} = {}) => { 
+    const values = [];
+    const keys = Object.keys(localStorage);
+    let i = keys.length;
+
+    while ( i-- ) {
+      if (keys[i] !== excludeKey) {
+        const item = localStorage.getItem(keys[i]);
+        values.push(item);
+      }
+    }
+
+    return values; 
+  }
+
   return {
     setItem,
     getItem,
-    clear
+    clear,
+    getAll,
   }
 }
