@@ -20,7 +20,11 @@
 }
 
 .header .button:hover {
-  background-color: var(--primary-400);
+  background-color: var(--primary-600);
+}
+
+.header .button:active {
+  background-color: var(--primary-700);
 }
 
 .header h1 {

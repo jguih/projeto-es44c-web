@@ -36,6 +36,7 @@ const createPostFormHandler =
     createPostFormFields,
     {
       onSubmit: (data) => {
+        homeCreatePostDialogHandler?.close();
         console.log(data);
       },
     }

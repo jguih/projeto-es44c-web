@@ -10,7 +10,6 @@ dialog[open] {
 /* Custom */
 
 .dialog {
-  background-color: var(--primary-500);
   padding: 0px;
   width: 40%;
   border: none;
@@ -57,15 +56,18 @@ dialog[open] {
 
 .dialog-actions button {
   background-color: transparent;
-  border: solid var(--primary-800);
+  border: solid var(--primary-900);
 }
 
 .dialog-actions button:hover {
-  background-color: var(--primary-800);
+  background-color: var(--primary-700);
+  border: solid var(--primary-700);
+  color: white;
 }
 
 .dialog-actions button:active {
-  background-color: var(--primary-700);
+  background-color: var(--primary-500);
+  border: solid var(--primary-500);
 }
 
 /* --- */

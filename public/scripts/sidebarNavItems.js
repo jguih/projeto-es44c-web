@@ -7,7 +7,7 @@ import { homeCreatePostDialogHandler } from './home.js';
  * */
 export const navItems = [
   {
-    label: "New post",
+    label: "Create post",
     onClick: (event) => homeCreatePostDialogHandler?.showModal(),
   },
   {
