@@ -5,18 +5,29 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-.button-text {
-  font-size: 1.2rem;
-}
-
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   font-weight: normal;
   margin: 0;
   padding: 0;
 }
 
-a, p {
+label,
+.button-text,
+button {
   font-size: 1.2rem;
+}
+
+input,
+textarea,
+a,
+p {
+  font-size: 1.1rem;
 }
 
 h1 {
@@ -31,20 +42,35 @@ h3 {
   font-size: 2.0rem;
 }
 
+.field-error {
+  font-size: .9rem;
+}
+
+/* Media Queries */
+
 @media screen and (max-width: 360px) {
 
-  a, p, .button-text {
+  label,
+  .button-text,
+  button {
     font-size: 1.1rem;
+  }
+
+  a,
+  p,
+  input,
+  textarea {
+    font-size: 1rem;
   }
 
   h1 {
     font-size: 2.4rem;
   }
-  
+
   h2 {
     font-size: 2.0rem;
   }
-  
+
   h3 {
     font-size: 1.6rem;
   }

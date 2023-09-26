@@ -1,5 +1,5 @@
 //@ts-check
-import { homePostFormDialogHandler } from './home.js';
+import { homeCreatePostDialogHandler } from './home.js';
 
 /** 
  * Defines all navigation items for the sidebar
@@ -7,8 +7,8 @@ import { homePostFormDialogHandler } from './home.js';
  * */
 export const navItems = [
   {
-    label: "New post",
-    onClick: (event) => homePostFormDialogHandler?.showModal(),
+    label: "Create post",
+    onClick: (event) => homeCreatePostDialogHandler?.showModal(),
   },
   {
     label: "Search for posts",

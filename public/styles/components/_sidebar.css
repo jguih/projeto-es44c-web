@@ -9,7 +9,7 @@
   height: 100%;
   width: 0px;
   overflow: hidden;
-  transition: var(--trasition);
+  transition: var(--transition);
   box-shadow: var(--box-shadow); 
   background-color: var(--primary-500);
 }
