@@ -37,7 +37,6 @@ export const PostsService = () => {
    * @returns {Post | undefined}
    */
   const create = (data) => {
-    console.log(data)
     if (!data) return;
     const title = data.find(data => data.name === "title")?.getValue();
     const date = data.find(data => data.name === "date")?.getValue();

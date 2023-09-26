@@ -134,7 +134,6 @@ export const useForm = (form, fields, {
   form.noValidate = true;
   const fieldsData = registerFields(form, fields);
 
-
   const submit = () => form.requestSubmit();
   const reset = () => form.reset();
 

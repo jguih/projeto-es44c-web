@@ -28,13 +28,6 @@ export const useHeader = (header, {
   if (!header) return;
   if (!(header instanceof HTMLElement)) return;
 
-  /**
-   * @param {(event: any) => void} handler
-   */
-  const setOnButtonClick = (handler) => {
-    onButtonClick = handler;
-  };
-
   const headerButtons = header.getElementsByClassName("button");
   [...headerButtons].forEach((btn) => {
     const isBtn = btn instanceof HTMLButtonElement;
@@ -47,6 +40,6 @@ export const useHeader = (header, {
 
   return {
     header,
-    onButtonClick: setOnButtonClick,
+    onButtonClick: (handler) => { onButtonClick = handler },
   }
 }

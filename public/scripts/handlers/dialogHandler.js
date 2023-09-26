@@ -36,26 +36,11 @@ export const useDialog = (dialog, {
   if (!dialog) return;
   if (!(dialog instanceof HTMLDialogElement)) return;
 
-  /**
-   * 
-   * @param {() => void} handler 
-   */
-  const setOnOk = (handler) => {
-    onOk = handler;
-  };
-
-  /**
-   * 
-   * @param {() => void} handler 
-   */
-  const setOnClear = (handler) => {
-    onClear = handler;
-  };
-
   const close = () => dialog.close();
   const showModal = () => dialog.showModal();
 
-  const eventListener = (event) => {
+  /** @param {MouseEvent} event */
+  const handleOnClick = (event) => {
     const target = event.currentTarget;
     const isBtn = target instanceof HTMLButtonElement;
     const action = isBtn ? target.dataset.action : undefined;
@@ -75,27 +60,17 @@ export const useDialog = (dialog, {
     }
   };
 
-  // Closes dialog when clicking outside
-  dialog.addEventListener("click", (event) => {
-    var rect = dialog.getBoundingClientRect();
-    var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
-      && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-    if (!isInDialog) {
-      close();
-    }
-  });
-
   // Add listeners to buttons inside the dialog
   [...dialog.getElementsByTagName("button")]
     .forEach(element => {
-      element.addEventListener("click", eventListener);
+      element.addEventListener("click", handleOnClick);
     });
 
   return {
     dialog,
     showModal: () => showModal(),
     close: () => close(),
-    onOk: setOnOk,
-    onClear: setOnClear,
+    onOk: (handler) => { onOk = handler },
+    onClear: (handler) => { onClear = handler },
   };
 };
