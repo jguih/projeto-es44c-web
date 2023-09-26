@@ -27,12 +27,18 @@ const createArticle = (post) => {
 /**
  * 
  * @param {import("../services/postsService.js").Post} post 
+ * @param {PostsService} postsService
  */
-const createDeleteButton = (post) => {
+const createDeleteButton = (post, postsService) => {
   const icon = createDeleteIcon(post);
   const button = document.createElement("button");
   button.classList.add("post-delete-btn");
   button.appendChild(icon);
+
+  button.addEventListener("click", (event) => {
+    postsService.delete(post.id.toString());
+  })
+  
   return button;
 }
 
@@ -77,11 +83,12 @@ const createH3 = (post, type) => {
 
 /** 
  * @param {import("../services/postsService.js").Post[]} postsData 
+ * @param {PostsService} postsService
  */
-const createPosts = (postsData) => {
+const createPosts = (postsData, postsService) => {
   const posts = postsData.map((pdata) => {
     const post = createArticle(pdata);
-    const deleteButton = createDeleteButton(pdata);
+    const deleteButton = createDeleteButton(pdata, postsService);
     const pTitle = createH3(pdata, "title");
     const pDate = createP(pdata, "date");
     const pDescription = createP(pdata, "description");
@@ -96,8 +103,8 @@ const createPosts = (postsData) => {
 
 /**
  * 
- * @param {HTMLElement[]} posts 
- * @returns {HTMLElement[]}
+ * @param {import("../services/postsService.js").Post[]} posts 
+ * @returns {import("../services/postsService.js").Post[]}
  */
 const sortPosts = (posts) => {
   return posts
@@ -113,19 +120,20 @@ const sortPosts = (posts) => {
  * @param {HTMLElement} parent 
  * @param {HTMLElement[]} posts 
  */
-const renderPosts = (parent, posts) =>
+const renderPosts = (parent, posts) => 
   posts.forEach((post) => parent.appendChild(post));
 
 /**
  * 
  * @param {HTMLElement} parent 
- * @param {import("../services/postsService.js").Post[]} postsData 
+ * @param {import("../services/postsService.js").Post[]} postsData
+ * @param {PostsService} postsService 
  */
-const render = (parent, postsData) => {
+const render = (parent, postsData, postsService) => {
   // Clear parent node
   [...parent.childNodes].forEach((node) => parent.removeChild(node));
-  let posts = createPosts(postsData);
-  renderPosts(parent, sortPosts(posts));
+  let posts = createPosts(sortPosts(postsData), postsService);
+  renderPosts(parent, posts);
   return posts;
 }
 
@@ -146,16 +154,25 @@ const render = (parent, postsData) => {
  * </article> 
  * ```
  */
-export const usePostsContainer = (postsContainer) => {
+
+/**
+ * 
+ * @param {HTMLElement | null} postsContainer 
+ * @param {PostsService} postsService 
+ * @returns 
+ */
+export const usePostsContainer = (postsContainer, postsService) => {
   if (!postsContainer) return;
   if (!(postsContainer instanceof HTMLElement)) return;
 
-  const postsService = new PostsService();
-  let renderedPosts = render(postsContainer, postsService.posts);
+  let renderedPosts = render(
+    postsContainer, 
+    postsService.posts, 
+    postsService);
 
   postsService.addOnChangeListener((data) => {
-    renderedPosts = render(postsContainer, data);
-  })
+    renderedPosts = render(postsContainer, data, postsService);
+  });
 
   return {
     parent: postsContainer,

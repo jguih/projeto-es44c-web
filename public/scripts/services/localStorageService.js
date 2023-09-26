@@ -2,13 +2,15 @@
 
 export class LocalStorageService {
 
+  constructor() {}
+
   /**
    * 
    * @param {string} type 
    * @param {string} id 
    * @returns 
    */
-  static createKey = (type, id) => {
+  createKey = (type, id) => {
     return JSON.stringify({
       type,
       id,
@@ -22,7 +24,7 @@ export class LocalStorageService {
    * @param {string} value 
    * @returns {void}
    */
-  static setItem = (type, id, value) => {
+  setItem = (type, id, value) => {
     localStorage.setItem(this.createKey(type, id), value);
   }
 
@@ -32,11 +34,11 @@ export class LocalStorageService {
    * @param {string} id  
    * @returns {string | null}
    */
-  static getItem = (type, id) => {
+  getItem = (type, id) => {
     return localStorage.getItem(this.createKey(type, id));
   }
 
-  static clear = () => localStorage.clear();
+  clear = () => localStorage.clear();
 
   /**
    * 
@@ -44,7 +46,7 @@ export class LocalStorageService {
    * type?: string
    * }} [args]  
    */
-  static getAll = ({ type } = {}) => {
+  getAll = ({ type } = {}) => {
     const values = [];
 
     [...Object.keys(localStorage)]
@@ -57,4 +59,9 @@ export class LocalStorageService {
 
     return values;
   }
+
+  /**
+   * @param {string} key
+   */
+  delete = (key) => localStorage.removeItem(key);
 }

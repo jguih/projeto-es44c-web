@@ -16,13 +16,15 @@ export class PostsService {
   static onChangeListeners = [];
   /** @type {Post[]} */
   static posts;
-
-  constructor() {
+  
+  /** @param {LocalStorageService} lsService */ 
+  constructor(lsService) {
+    this.lsService = lsService;
     this.posts = this.getAll();
   }
 
   getAll() {
-    let data = LocalStorageService.getAll({ type: "post" });
+    let data = this.lsService.getAll({ type: "post" });
 
     /** @type {Post[]} */
     const parsedData = [];
@@ -38,12 +40,12 @@ export class PostsService {
   }
 
   getId() {
-    const id = LocalStorageService.getItem("id-generator", "0");
+    const id = this.lsService.getItem("id-generator", "0");
     if (id) {
       const newId = Number.parseInt(id) + 1;
-      LocalStorageService.setItem("id-generator", "0", `${newId}`);
+      this.lsService.setItem("id-generator", "0", `${newId}`);
     } else {
-      LocalStorageService.setItem("id-generator", "0", "1");
+      this.lsService.setItem("id-generator", "0", "1");
       return "0";
     }
     return id;
@@ -77,7 +79,7 @@ export class PostsService {
    */
   insert(post) {
     try {
-      LocalStorageService
+      this.lsService
         .setItem(
           "post",
           post.id.toString(),
@@ -100,6 +102,19 @@ export class PostsService {
   createAndInsert(data) {
     const newPost = this.create(data);
     return newPost ? this.insert(newPost) : false;
+  }
+
+  /** @param {string} id */
+  delete(id) {
+    const key = this.lsService.createKey("post", id);
+    try {
+      this.lsService.delete(key);
+      this.posts = this.getAll();
+      PostsService.onChangeListeners
+        .forEach((listener) => listener(this.posts));
+    } catch (err) { 
+      console.log(err); 
+    }
   }
 
   /**
