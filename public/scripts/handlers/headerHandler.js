@@ -2,12 +2,17 @@
 
 /**
  * @typedef {object} useHeaderArgs
- * @prop {(event: Event) => void} [onBtnClick]
+ * @prop {(event: Event) => void} [onButtonClick]
+ */
+
+/**
+ * @typedef {function} EventHandler
  */
 
 /**
  * @typedef {object} HeaderHandler
  * @prop {HTMLElement} header
+ * @prop {(handler: ((event: Event) => void)) => void} onButtonClick
  */
 
 /**
@@ -17,11 +22,18 @@
  * @returns {HeaderHandler | undefined}
  */
 export const useHeader = (header, {
-  onBtnClick,
+  onButtonClick,
 } = {}) => {
 
   if (!header) return;
   if (!(header instanceof HTMLElement)) return;
+
+  /**
+   * @param {(event: any) => void} handler
+   */
+  const setOnButtonClick = (handler) => {
+    onButtonClick = handler;
+  };
 
   const headerButtons = header.getElementsByClassName("button");
   [...headerButtons].forEach((btn) => {
@@ -29,11 +41,12 @@ export const useHeader = (header, {
     if (isBtn)
       btn.addEventListener(
         "click",
-        (event) => onBtnClick?.(event)
+        (event) => onButtonClick?.(event)
       );
   })
 
   return {
     header,
+    onButtonClick: setOnButtonClick,
   }
 }

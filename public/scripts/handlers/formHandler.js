@@ -234,6 +234,14 @@ export const useForm = (form, fields, {
 
   const submit = () => form.requestSubmit();
   const reset = () => form.reset();
+  /**
+   * 
+   * @param {(data: any) => void} newOnSubmit 
+   * @returns {void}
+   */
+  const setOnSubmit = (newOnSubmit) => {
+    onSubmit = newOnSubmit
+  };
 
   /** @param {SubmitEvent} event */
   const handleOnSubmit = (event) => {
@@ -255,5 +263,6 @@ export const useForm = (form, fields, {
     form,
     submit: () => submit(),
     reset: () => reset(),
+    onSubmit: setOnSubmit,
   }
 }

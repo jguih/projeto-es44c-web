@@ -7,6 +7,8 @@ import { useForm } from "./handlers/formHandler.js";
 import { createPostFormFields } from "./createPostFormFields.js";
 import { PostsService } from "./services/postsService.js";
 
+/* -- Home page Handlers -- */
+
 const homeSidebarHandler =
   useSidebar(
     document.getElementById("home-sidebar"),
@@ -16,45 +18,58 @@ const homeSidebarHandler =
       minWidthToFullScreen: 360,
     }
   );
-homeSidebarHandler?.setNavItems(navItems);
 
 const homeHeaderHandler =
-  useHeader(
-    document.getElementById("home-header"),
-    {
-      onBtnClick: (event) => {
-        const target = event.currentTarget;
-        const isHTMLElement = target instanceof HTMLElement;
-        const action = isHTMLElement ? target.dataset.action : null;
-        homeSidebarHandler?.handleAction(action);
-      }
-    }
-  );
-
-const postsService = PostsService();
+  useHeader(document.getElementById("home-header"));
 
 const createPostFormHandler =
   useForm(
     document.getElementById("create-post-form"),
     createPostFormFields,
-    {
-      onSubmit: (data) => {
-        postsService.createAndInsert(data);
-        homeCreatePostDialogHandler?.close();
-      },
+  );
+
+const homeCreatePostDialogHandler =
+  useDialog(document.getElementById("create-post-form-dialog"));
+
+/* --- */
+
+/* -- Services -- */
+
+const postsService = PostsService();
+
+/* --- */
+
+/* -- Handlers Configuration -- */
+
+homeSidebarHandler?.setNavItems(navItems);
+
+homeHeaderHandler
+  ?.onButtonClick(
+    (event) => {
+      const target = event.currentTarget;
+      const isHTMLElement = target instanceof HTMLElement;
+      const action = isHTMLElement ? target.dataset.action : null;
+      homeSidebarHandler?.handleAction(action);
     }
   );
 
-
-const homeCreatePostDialogHandler =
-  useDialog(document.getElementById("create-post-form-dialog"), {
-    onOk: () => {
-      createPostFormHandler?.submit();
-    },
-    onClear: () => {
-      createPostFormHandler?.reset();
-    }
+createPostFormHandler
+  ?.onSubmit((data) => {
+    postsService.createAndInsert(data);
+    homeCreatePostDialogHandler?.close();
   });
+
+homeCreatePostDialogHandler
+  ?.onOk(() => {
+    createPostFormHandler?.submit();
+  });
+
+homeCreatePostDialogHandler
+  ?.onClear(() => {
+    createPostFormHandler?.reset();
+  })
+
+/* --- */
 
 export {
   homeSidebarHandler,

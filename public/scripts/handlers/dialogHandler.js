@@ -9,8 +9,8 @@ export const DIALOG_ACTIONS = {
 
 /**
  * @typedef {object} UseDialogArgs
- * @prop {() => void} [onOk]
- * @prop {() => void} [onClear]
+ * @prop {() => void} [onOk] - Called when button with data-dialog-ok is clicked
+ * @prop {() => void} [onClear] - Called when button with data-dialog-clear is clicked
  */
 
 /**
@@ -18,6 +18,8 @@ export const DIALOG_ACTIONS = {
  * @prop {HTMLDialogElement} dialog
  * @prop {() => void} showModal
  * @prop {() => void} close
+ * @prop {(handler: () => void) => void} onOk
+ * @prop {(handler: () => void) => void} onClear
  */
 
 /**
@@ -33,6 +35,22 @@ export const useDialog = (dialog, {
 
   if (!dialog) return;
   if (!(dialog instanceof HTMLDialogElement)) return;
+
+  /**
+   * 
+   * @param {() => void} handler 
+   */
+  const setOnOk = (handler) => {
+    onOk = handler;
+  };
+
+  /**
+   * 
+   * @param {() => void} handler 
+   */
+  const setOnClear = (handler) => {
+    onClear = handler;
+  };
 
   const close = () => dialog.close();
   const showModal = () => dialog.showModal();
@@ -77,5 +95,7 @@ export const useDialog = (dialog, {
     dialog,
     showModal: () => showModal(),
     close: () => close(),
+    onOk: setOnOk,
+    onClear: setOnClear,
   };
 };
