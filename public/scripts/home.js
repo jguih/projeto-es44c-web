@@ -4,7 +4,6 @@ import { useDialog } from "./handlers/dialogHandler.js";
 import { useSidebar } from "./handlers/sidebarHandler.js";
 import { navItems } from "./sidebarNavItems.js";
 import { useForm } from "./handlers/formHandler.js";
-import { createPostFormFields } from "./createPostFormFields.js";
 import { PostsService } from "./services/postsService.js";
 
 /* -- Home page Handlers -- */
@@ -25,7 +24,11 @@ export const homeHeaderHandler =
 export const createPostFormHandler =
   useForm(
     document.getElementById("create-post-form"),
-    createPostFormFields,
+    [
+      { name: "title" },
+      { name: "date" },
+      { name: "description" },
+    ],
   );
 
 export const homeCreatePostDialogHandler =

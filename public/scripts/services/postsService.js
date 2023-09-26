@@ -33,19 +33,22 @@ export const PostsService = () => {
 
   /**
    *  
-   * @param {any} data 
+   * @param {import("../handlers/formHandler.js").FieldData[]} data 
    * @returns {Post | undefined}
    */
   const create = (data) => {
+    console.log(data)
     if (!data) return;
-    if (!data["title"]) return;
-    if (!data["date"]) return;
+    const title = data.find(data => data.name === "title")?.getValue();
+    const date = data.find(data => data.name === "date")?.getValue();
+    const description = data.find(data => data.name === "description")?.getValue();
+    if (!title || !date) return;
     /** @type {Post} */
     const newPost = {
       id: Number.parseInt(getId()),
-      title: data["title"],
-      date: data["date"],
-      description: data["description"] ?? "",
+      title: title,
+      date: date,
+      description: description ?? "",
     }
     return newPost;
   }
@@ -57,6 +60,7 @@ export const PostsService = () => {
    */
   const insert = (post) => {
     try {
+      console.log(post)
       setItem(post.id.toString(), JSON.stringify(post));
       return true;
     } catch (err) {
@@ -66,7 +70,7 @@ export const PostsService = () => {
 
   /**
    * 
-   * @param {any} data
+   * @param {import("../handlers/formHandler.js").FieldData[]} data
    * @returns {boolean} 
    */
   const createAndInsert = (data) => {
