@@ -16,20 +16,22 @@
  * @param {useHeaderArgs} args - Optional arguments
  * @returns {HeaderHandler | undefined}
  */
-export const useHeader = (header, { 
-  onBtnClick, 
+export const useHeader = (header, {
+  onBtnClick,
 } = {}) => {
 
   if (!header) return;
   if (!(header instanceof HTMLElement)) return;
 
   const headerButtons = header.getElementsByClassName("button");
-
-  for (let i = 0; i < headerButtons.length; i++) {
-    headerButtons
-      .item(i)
-      ?.addEventListener('click', (event) => onBtnClick?.(event));
-  }
+  [...headerButtons].forEach((btn) => {
+    const isBtn = btn instanceof HTMLButtonElement;
+    if (isBtn)
+      btn.addEventListener(
+        "click",
+        (event) => onBtnClick?.(event)
+      );
+  })
 
   return {
     header,

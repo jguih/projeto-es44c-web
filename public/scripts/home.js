@@ -5,6 +5,7 @@ import { useSidebar } from "./handlers/sidebarHandler.js";
 import { navItems } from "./sidebarNavItems.js";
 import { useForm } from "./handlers/formHandler.js";
 import { createPostFormFields } from "./createPostFormFields.js";
+import { PostsService } from "./services/postsService.js";
 
 const homeSidebarHandler =
   useSidebar(
@@ -30,14 +31,16 @@ const homeHeaderHandler =
     }
   );
 
+const postsService = PostsService();
+
 const createPostFormHandler =
   useForm(
     document.getElementById("create-post-form"),
     createPostFormFields,
     {
       onSubmit: (data) => {
+        postsService.createAndInsert(data);
         homeCreatePostDialogHandler?.close();
-        console.log(data);
       },
     }
   );
