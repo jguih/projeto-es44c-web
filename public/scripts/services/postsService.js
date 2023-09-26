@@ -10,22 +10,40 @@ import { LocalStorageService } from "./localStorageService.js"
  * @prop {string} [description]
  */
 
-export const PostsService = () => {
+export class PostsService {
 
-  const {
-    setItem,
-    getItem,
-    clear,
-    getAll: lsGetAll,
-  } = LocalStorageService();
+  /** @type {((data: Post[]) => void)[]} */
+  static onChangeListeners = [];
+  /** @type {Post[]} */
+  static posts;
 
-  const getId = () => {
-    const id = getItem("post-ids");
+  constructor() {
+    this.posts = this.getAll();
+  }
+
+  getAll() {
+    let data = LocalStorageService.getAll({ type: "post" });
+
+    /** @type {Post[]} */
+    const parsedData = [];
+
+    data.forEach((data) => {
+      try {
+        const parsedItem = data ? JSON.parse(data) : null;
+        parsedItem && parsedData.push(parsedItem);
+      } catch (err) { }
+    });
+
+    return parsedData;
+  }
+
+  getId() {
+    const id = LocalStorageService.getItem("id-generator", "0");
     if (id) {
       const newId = Number.parseInt(id) + 1;
-      setItem("post-ids", `${newId}`);
+      LocalStorageService.setItem("id-generator", "0", `${newId}`);
     } else {
-      setItem("post-ids", "1");
+      LocalStorageService.setItem("id-generator", "0", "1");
       return "0";
     }
     return id;
@@ -36,7 +54,7 @@ export const PostsService = () => {
    * @param {import("../handlers/formHandler.js").FieldData[]} data 
    * @returns {Post | undefined}
    */
-  const create = (data) => {
+  create(data) {
     if (!data) return;
     const title = data.find(data => data.name === "title")?.getValue();
     const date = data.find(data => data.name === "date")?.getValue();
@@ -44,7 +62,7 @@ export const PostsService = () => {
     if (!title || !date) return;
     /** @type {Post} */
     const newPost = {
-      id: Number.parseInt(getId()),
+      id: Number.parseInt(this.getId()),
       title: title,
       date: date,
       description: description ?? "",
@@ -57,10 +75,17 @@ export const PostsService = () => {
    * @param {Post} post 
    * @returns {boolean}
    */
-  const insert = (post) => {
+  insert(post) {
     try {
-      console.log(post)
-      setItem(post.id.toString(), JSON.stringify(post));
+      LocalStorageService
+        .setItem(
+          "post",
+          post.id.toString(),
+          JSON.stringify(post)
+        );
+      this.posts = this.getAll();
+      PostsService.onChangeListeners
+        .forEach((listener) => listener(this.posts));
       return true;
     } catch (err) {
       return false;
@@ -72,25 +97,15 @@ export const PostsService = () => {
    * @param {import("../handlers/formHandler.js").FieldData[]} data
    * @returns {boolean} 
    */
-  const createAndInsert = (data) => {
-    const newPost = create(data);
-    if (newPost) return insert(newPost);
-    return false;
+  createAndInsert(data) {
+    const newPost = this.create(data);
+    return newPost ? this.insert(newPost) : false;
   }
 
-  /** @param {string} key */
-  const get = (key) => {
-    return getItem(key);
-  }
-
-  const getAll = () => {
-    return lsGetAll({excludeKey: "post-ids"});
-  }
-
-  return {
-    create,
-    insert,
-    createAndInsert,
-    getAll,
+  /**
+   * @param {(data: Post[]) => void} listener
+   */
+  addOnChangeListener(listener) {
+    PostsService.onChangeListeners.push(listener);
   }
 }

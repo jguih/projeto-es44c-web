@@ -5,6 +5,7 @@ import { useSidebar } from "./handlers/sidebarHandler.js";
 import { navItems } from "./sidebarNavItems.js";
 import { useForm } from "./handlers/formHandler.js";
 import { PostsService } from "./services/postsService.js";
+import { usePostsContainer } from "./handlers/postsContainerHandler.js";
 
 /* -- Home page Handlers -- */
 
@@ -34,11 +35,14 @@ export const createPostFormHandler =
 export const homeCreatePostDialogHandler =
   useDialog(document.getElementById("create-post-form-dialog"));
 
+export const homePostsContainer =
+  usePostsContainer(document.getElementById("posts-container"));
+
 /* --- */
 
 /* -- Services -- */
 
-const postsService = PostsService();
+const postsService = new PostsService();
 
 /* --- */
 
