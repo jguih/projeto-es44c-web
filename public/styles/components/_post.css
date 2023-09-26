@@ -12,6 +12,8 @@
   margin: 48px 0;
   padding: 12px;
   border-radius: 12px;
+  border-bottom: solid var(--primary-900) 2px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .post-delete-btn {

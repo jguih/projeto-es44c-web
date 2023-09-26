@@ -9,7 +9,7 @@
 * {
   box-sizing: border-box;
   --transition: .3s;
-  --box-shadow: 4px 2px 16px rgba(0, 0, 0, 0.8);
+  --box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
   --btn-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   --primary-400: #BDBDBD;
   --primary-500: #9E9E9E;

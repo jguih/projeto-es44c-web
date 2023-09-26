@@ -10,6 +10,13 @@ import { LocalStorageService } from "./localStorageService.js"
  * @prop {string} [description]
  */
 
+/**
+ * @typedef {object} NewPost
+ * @prop {string} title
+ * @prop {string} date
+ * @prop {string} [description]
+ */
+
 export class PostsService {
 
   /** @type {((data: Post[]) => void)[]} */
@@ -53,23 +60,23 @@ export class PostsService {
 
   /**
    *  
-   * @param {import("../handlers/formHandler.js").FieldData[]} data 
+   * @param {NewPost} post 
    * @returns {Post | undefined}
    */
-  create(data) {
-    if (!data) return;
-    const title = data.find(data => data.name === "title")?.getValue();
-    const date = data.find(data => data.name === "date")?.getValue();
-    const description = data.find(data => data.name === "description")?.getValue();
-    if (!title || !date) return;
-    /** @type {Post} */
-    const newPost = {
-      id: Number.parseInt(this.getId()),
-      title: title,
-      date: date,
-      description: description ?? "",
+  create(post) {
+    if (!post) return;
+    try {
+      /** @type {Post} */
+      const newPost = {
+        id: Number.parseInt(this.getId()),
+        title: post.title,
+        date: post.date,
+        description: post.description ?? "",
+      }
+      return newPost;
+    } catch (err) {
+      return;
     }
-    return newPost;
   }
 
   /**
@@ -96,7 +103,7 @@ export class PostsService {
 
   /**
    * 
-   * @param {import("../handlers/formHandler.js").FieldData[]} data
+   * @param {NewPost} data
    * @returns {boolean} 
    */
   createAndInsert(data) {

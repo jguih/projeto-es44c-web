@@ -45,7 +45,7 @@ export const homeCreatePostDialogHandler =
 
 export const homePostsContainer =
   usePostsContainer(
-    document.getElementById("posts-container"), 
+    document.getElementById("posts-container"),
     postsService);
 
 /* --- */
@@ -64,9 +64,32 @@ homeHeaderHandler
     }
   );
 
+/**
+ * 
+ * @param {import("./handlers/formHandler.js").FieldData[]} fieldData 
+ * @param {string} field 
+ * @returns 
+ */
+const findField = (fieldData, field) => {
+  return fieldData.find((d) => d.name === field)?.getValue();
+}
+
 createPostFormHandler
   ?.onSubmit((data) => {
-    postsService.createAndInsert(data);
+    const title = findField(data, "title");
+    const date = findField(data, "date");
+    const description = findField(data, "description");
+    
+    if (!title || !date) return;
+  
+    /** @type {import("./services/postsService.js").NewPost} */
+    const newPost = {
+      title: title,
+      date: date,
+      description: description,
+    }
+
+    postsService.createAndInsert(newPost);
     homeCreatePostDialogHandler?.close();
   });
 

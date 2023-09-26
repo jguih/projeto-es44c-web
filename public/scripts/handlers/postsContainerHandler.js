@@ -1,5 +1,6 @@
 //@ts-check
 
+import { formatDate } from "../services/dateService.js";
 import { PostsService } from "../services/postsService.js";
 
 /**
@@ -52,7 +53,12 @@ const createP = (post, type) => {
   switch (type) {
     case "date": {
       p.classList.add("post-date");
-      p.innerText = post.date;
+      try {
+        const date = formatDate(new Date(post.date));
+        p.innerText = date;
+      } catch (err) {
+        console.log(err);
+      }
       break;
     }
     case "description": {
