@@ -190,12 +190,10 @@ export const useSidebar = (sidebar, {
     sidebarBtns
       ?.item(i)
       ?.addEventListener("click", (event) => {
-        const action = event.currentTarget instanceof HTMLElement ?
-          event.currentTarget.dataset.action : undefined;
-        if (action === SIDEBAR_ACTIONS.close) {
-          // Closes sidebar if data-action="close-sidebar"
-          closeSidebar(sidebar, { ...args });
-        }
+        const target = event.currentTarget;
+        const isHTMLElement = target instanceof HTMLElement;
+        const action = isHTMLElement ? target.dataset.action : null;
+        handleAction(action, sidebar, { ...args });
       })
   };
 
@@ -210,7 +208,7 @@ export const useSidebar = (sidebar, {
     closeSidebar: () => closeSidebar(sidebar, { ...args }),
     toggleSidebar: () => toggleSidebar(sidebar, { ...args }),
     handleAction: (action) => handleAction(action, sidebar, { ...args }),
-    setNavItems: (navItems) => 
+    setNavItems: (navItems) =>
       firstNav ? setNavItems(firstNav, navItems) : null,
   };
 }

@@ -15,9 +15,13 @@
 }
 
 .post-delete-btn {
-  position: absolute;
   background-color: transparent;
+  
   display: none;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
   padding: 6px;
   border-radius: 12px;
   border: none;
@@ -26,7 +30,7 @@
 }
 
 .post:hover .post-delete-btn {
-  display: block;
+  display: flex;
 }
 
 .post-delete-btn:hover {

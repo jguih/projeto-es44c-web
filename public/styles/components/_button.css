@@ -27,6 +27,11 @@ button {
   border-radius: 8px;
   color: white;
   border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 /* --- */

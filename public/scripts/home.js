@@ -7,11 +7,14 @@ import { useForm } from "./handlers/formHandler.js";
 import { createPostFormFields } from "./createPostFormFields.js";
 
 const homeSidebarHandler =
-  useSidebar(document.getElementById("home-sidebar"), {
-    shouldFocus: true,
-    width: "300px",
-    minWidthToFullScreen: 360,
-  });
+  useSidebar(
+    document.getElementById("home-sidebar"),
+    {
+      shouldFocus: true,
+      width: "300px",
+      minWidthToFullScreen: 360,
+    }
+  );
 homeSidebarHandler?.setNavItems(navItems);
 
 const homeHeaderHandler =
@@ -19,10 +22,10 @@ const homeHeaderHandler =
     document.getElementById("home-header"),
     {
       onBtnClick: (event) => {
-        event.currentTarget instanceof HTMLElement ?
-          homeSidebarHandler
-            ?.handleAction(event.currentTarget.dataset.action) :
-          undefined
+        const target = event.currentTarget;
+        const isHTMLElement = target instanceof HTMLElement;
+        const action = isHTMLElement ? target.dataset.action : null;
+        homeSidebarHandler?.handleAction(action);
       }
     }
   );

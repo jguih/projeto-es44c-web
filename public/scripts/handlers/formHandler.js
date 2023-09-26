@@ -61,13 +61,19 @@
  * @returns {HTMLInputElement}
  */
 const createInput = (field) => {
-  const {inputProps} = field;
+  const { inputProps } = field;
+  const classList = inputProps.style?.classList;
   const input = document.createElement("input");
+
   input.type = inputProps.type ?? "";
   input.name = inputProps.name ?? "";
   input.id = inputProps.id ?? "";
   input.required = inputProps.required ?? false;
-  input.classList.add("input");
+
+  classList?.forEach((cssClass) => {
+    if (cssClass) input.classList.add(cssClass);
+  });
+
   return input;
 }
 
@@ -76,10 +82,16 @@ const createInput = (field) => {
  * @returns {HTMLLabelElement}
  */
 const createLabel = (field) => {
-  const {labelProps} = field;
+  const { labelProps } = field;
+  const classList = labelProps.style?.classList;
   const label = document.createElement("label");
-  label.classList.add("label");
+
+  classList?.forEach((cssClass) => {
+    if (cssClass) label.classList.add(cssClass);
+  });
+
   label.innerText = labelProps.label ?? "";
+
   return label;
 }
 
@@ -88,8 +100,14 @@ const createLabel = (field) => {
  * @returns {HTMLParagraphElement}
  */
 const createParagraph = (field) => {
+  const { pProps } = field;
   const p = document.createElement("p");
-  p.classList.add("field-error");
+  const classList = pProps.style?.classList;
+
+  classList?.forEach((cssClass) => {
+    if (cssClass) p.classList.add(cssClass);
+  });
+
   return p;
 }
 
@@ -98,12 +116,18 @@ const createParagraph = (field) => {
  * @returns {HTMLTextAreaElement}
  */
 const createTextarea = (field) => {
-  const {inputProps} = field;
+  const { inputProps } = field;
   const textarea = document.createElement("textarea");
-  textarea.classList.add("textarea");
+  const classList = inputProps.style?.classList;
+
+  classList?.forEach((cssClass) => {
+    if (cssClass) textarea.classList.add(cssClass);
+  });
+
   textarea.id = inputProps.id ?? "";
   textarea.name = inputProps.name ?? "";
   textarea.required = inputProps.required ?? false;
+
   return textarea;
 }
 

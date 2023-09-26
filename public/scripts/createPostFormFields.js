@@ -1,8 +1,11 @@
 //@ts-check
 
-const commonId = "create-post-form"
+const commonId = "create-post-form";
 
-/** @type {import ("./handlers/formHandler.js").FormField[]} */
+/** 
+ * Defines all inputs elements for the create post form
+ * @type {import ("./handlers/formHandler.js").FormField[]} 
+ */
 export const createPostFormFields = [
   {
     element: "input",
@@ -19,7 +22,9 @@ export const createPostFormFields = [
       label: "Title",
     },
     pProps: {
-
+      style: {
+        classList: ["field-error"]
+      }
     }
   },
   {
@@ -37,7 +42,9 @@ export const createPostFormFields = [
       label: "Date",
     },
     pProps: {
-
+      style: {
+        classList: ["field-error"]
+      }
     }
   },
   {
@@ -53,7 +60,9 @@ export const createPostFormFields = [
       label: "Description",
     },
     pProps: {
-
+      style: {
+        classList: ["field-error"]
+      }
     }
   },
 ]
