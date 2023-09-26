@@ -1,0 +1,57 @@
+/* -- Form Styles -- */
+
+/* Overrides */
+
+form {
+  padding: 0px;
+  margin: 0px;
+}
+
+label,
+label span,
+label input,
+label textarea {
+  display: block;
+}
+
+label span {
+  margin-bottom: 2px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 4px 6px;
+  border: none;
+  outline: none;
+}
+
+/* --- */
+
+/* Custom Styles */
+
+.field-error {
+  color: var(--red);
+}
+
+.input, 
+.textarea {
+  border-bottom: solid var(--primary-900) 3px;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.label:focus-within {
+  color: var(--secondary-900);
+}
+
+.input:hover,
+.textarea:hover {
+  border-bottom: solid var(--primary-700) 3px;
+}
+
+.input:focus,
+.textarea:focus {
+  border-bottom: solid var(--secondary-900) 3px;
+}
+
+/* --- */

@@ -3,10 +3,12 @@
 @import url("./components/_sidebar.css");
 @import url("./components/_dialog.css");
 @import url("./components/_post.css");
+@import url("./components/_form.css");
+@import url("./components/_button.css");
 
 * {
   box-sizing: border-box;
-  --trasition: .3s;
+  --transition: .3s;
   --box-shadow: 4px 2px 16px rgba(0, 0, 0, 0.8);
   --btn-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
   --primary-400: #BDBDBD;
@@ -15,6 +17,8 @@
   --primary-700: #616161;
   --primary-800: #424242;
   --primary-900: #212121;
+  --secondary-600: #FB8C00;
+  --secondary-900: #E65100;
   --red: red;
   --green: green;
   --yellow: yellow;
@@ -38,28 +42,6 @@ a:visited,
 a:hover,
 a:active {
   color: inherit;
-}
-
-button {
-  cursor: pointer;
-  user-select: none;
-}
-
-.button {
-  padding: 4px 6px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.button-close {
-  background-color: transparent;
-  padding: 4px;
-  border-radius: 8px;
-  color: white;
-  border: none;
 }
 
 /* Params for material icons */

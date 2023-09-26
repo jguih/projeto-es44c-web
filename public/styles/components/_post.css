@@ -63,6 +63,8 @@
   border-radius: 12px;
 }
 
+/* Media Queries */
+
 @media screen and (max-width: 360px) {
 
   .posts-container {

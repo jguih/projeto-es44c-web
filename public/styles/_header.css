@@ -48,6 +48,8 @@
   background-color: var(--primary-400);
 }
 
+/* Media Queries */
+
 @media screen and (max-width: 360px) {
 
   .header {

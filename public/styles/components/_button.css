@@ -1,0 +1,32 @@
+
+/* -- Button Styles -- */
+
+/* Overrides */
+
+button {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* --- */
+
+/* Custom */
+
+.button {
+  padding: 4px 6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.button-close {
+  background-color: transparent;
+  padding: 4px;
+  border-radius: 8px;
+  color: white;
+  border: none;
+}
+
+/* --- */

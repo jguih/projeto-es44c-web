@@ -1,6 +1,14 @@
 
 /* -- Dialog Styles -- */
 
+dialog[open] {
+  /* fadeIn is defined at the end of this file */
+  animation: fadeIn var(--transition);
+  -webkit-animation: fadeIn var(--transition);
+}
+
+/* Custom */
+
 .dialog {
   background-color: var(--primary-500);
   padding: 0px;
@@ -20,7 +28,16 @@
 }
 
 .dialog-content {
-  padding: 20px;
+  margin: 24px 0;
+}
+
+.dialog-content form {
+  width: 60%;
+  margin: 0px auto;
+}
+
+.dialog-content label {
+  margin-bottom: 12px;
 }
 
 .dialog-close-btn:hover {
@@ -30,6 +47,43 @@
 .dialog-close-btn:active {
   background-color: var(--primary-800);
 }
+
+.dialog-actions {
+  margin: 24px 24px;
+  gap: 12px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-actions button {
+  background-color: transparent;
+  border: solid var(--primary-800);
+}
+
+.dialog-actions button:hover {
+  background-color: var(--primary-800);
+}
+
+.dialog-actions button:active {
+  background-color: var(--primary-700);
+}
+
+/* --- */
+
+/* Keyframes */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- */
+
+/* Media Queries */
 
 @media screen and (max-width: 1200px) {
 
