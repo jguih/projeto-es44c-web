@@ -10,7 +10,7 @@
   --border-bottom-size: 2px;
   display: block;
   position: relative;
-  margin: 48px 0;
+  margin: 32px 0;
   padding: 12px;
   border-radius: 8px;
   border-bottom: solid var(--primary-900) var(--border-bottom-size);

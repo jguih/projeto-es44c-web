@@ -30,6 +30,7 @@ input, textarea {
 /* Custom Styles */
 
 .field-error {
+  margin-top: 2px;
   color: var(--red);
 }
 

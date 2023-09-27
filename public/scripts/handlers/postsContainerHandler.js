@@ -1,11 +1,12 @@
 //@ts-check
 
-import { formatDate } from "../services/dateService.js";
+import { inputDateToUTCDate } from "../services/dateService.js";
 import { PostsService } from "../services/postsService.js";
 
 /**
  * @typedef {object} PostsFilter
  * @prop {string} [title]
+ * @prop {string} [date]
  */
 
 /**
@@ -67,7 +68,7 @@ const createP = (post, type) => {
     case "date": {
       p.classList.add("post-date");
       try {
-        const date = formatDate(new Date(post.date));
+        const date = inputDateToUTCDate(post.date);
         p.innerText = date;
       } catch (err) {
         console.log(err);
@@ -128,14 +129,27 @@ const createPosts = (postsData, postsService) => {
  * @returns {import("../services/postsService.js").Post[]}
  */
 const sortAndFilterPostsData = (posts, filter) => {
-  // Filter by filter.title
-  let filteredPosts =
-    filter ? posts.filter((post) => {
-      if (!filter.title || filter.title === "") return true;
-      const postTitle = post.title.toLowerCase();
-      const filterTitle = filter.title.toLowerCase();
-      return postTitle.includes(filterTitle);
-    }) : posts;
+  let filteredPosts = posts;
+
+  if (filter) {
+    // Filter by filter.title
+    filteredPosts =
+      posts.filter((post) => {
+        if (!filter.title || filter.title === "") return true;
+        const postTitle = post.title.toLowerCase();
+        const filterTitle = filter.title.toLowerCase();
+        return postTitle.includes(filterTitle);
+      });
+      
+    // Filter by filter.date
+    filteredPosts = 
+      filteredPosts.filter((post) => {
+        if (!filter.date || filter.date === "") return true;
+        const postDate = post.date.toLowerCase();
+        const filterDate = filter.date.toLowerCase();
+        return postDate.includes(filterDate);
+      });
+  }
 
   let sortedPosts =
     filteredPosts.sort((a, b) => {
@@ -196,7 +210,7 @@ export const usePostsContainer = (
   if (!(postsContainer instanceof HTMLElement)) return;
 
   /** @type {PostsFilter} */
-  let postsContainerFilter;
+  let postsContainerFilter = {};
 
   const contextRender = () => 
     render(
@@ -215,8 +229,12 @@ export const usePostsContainer = (
 
   /** @param {PostsFilter} filter */
   const setFilter = (filter) => {
+    // Keeps previous filter values, but allow them to be overrided
+    postsContainerFilter = {
+      ...postsContainerFilter,
+      ...filter,
+    };
     // Re-render posts on filter change
-    postsContainerFilter = filter;
     contextRender();
   }
 
