@@ -49,15 +49,24 @@ export const searchPostDialogHandler =
 
 export const searchPostContainerHandler =
   usePostsContainer(
-    document.getElementById("search-dialog-posts-container"),
+    document.getElementById("search-post-dialog-posts-container"),
     postsService
   );
 
 export const searchPostFormHandler =
   useForm(
-    document.getElementById("search-post-form"),
+    document.getElementById("search-post-dialog-form"),
     [{ name: "name" }]
   )
+
+export const deletePostDialogHandler =
+  useDialog(document.getElementById("delete-post-dialog"));
+
+export const deletePostContainerHandler =
+  usePostsContainer(
+    document.getElementById("delete-post-dialog-posts-container"),
+    postsService
+  );
 
 export const postsContainerHandler =
   usePostsContainer(

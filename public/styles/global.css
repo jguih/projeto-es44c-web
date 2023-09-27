@@ -44,6 +44,10 @@ a:active {
   color: inherit;
 }
 
+.overflow-hidden {
+  overflow: hidden;
+}
+
 /* Params for material icons */
 .material-symbols-outlined {
   font-variation-settings:

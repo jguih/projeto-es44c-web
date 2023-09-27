@@ -32,6 +32,10 @@
   top: 12px;
 }
 
+#delete-post-dialog-posts-container .post-delete-btn {
+  display: flex;
+}
+
 .post:hover .post-delete-btn {
   display: flex;
 }
