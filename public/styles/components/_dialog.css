@@ -11,19 +11,34 @@ dialog[open] {
 
 .dialog {
   padding: 0px;
-  width: 40%;
+  width: 60%;
   border: none;
   box-shadow: var(--box-shadow);
+}
+
+#search-post-dialog {
+  height: 100%;
 }
 
 .dialog-top {
   background-color: var(--primary-900);
   padding: 20px;
   color: white;
+
+  position: sticky;
+  top: 0px;
+  z-index: 1;
   
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 6px;
+}
+
+.dialog-title {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .dialog-content {
@@ -90,7 +105,7 @@ dialog[open] {
 @media screen and (max-width: 1200px) {
 
   .dialog {
-    width: 60%;
+    width: 70%;
   }
 
 }

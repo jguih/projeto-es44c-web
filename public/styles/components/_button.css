@@ -8,6 +8,10 @@ button {
   user-select: none;
 }
 
+button:focus {
+  outline: solid var(--secondary-900) 3px;
+}
+
 /* --- */
 
 /* Custom */

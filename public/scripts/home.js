@@ -7,6 +7,7 @@ import { useForm } from "./handlers/formHandler.js";
 import { PostsService } from "./services/postsService.js";
 import { usePostsContainer } from "./handlers/postsContainerHandler.js";
 import { LocalStorageService } from "./services/localStorageService.js";
+import { getDataFromEvent, getNewPostFromFormData } from "./utils.js";
 
 /* -- Services -- */
 
@@ -17,7 +18,7 @@ const postsService = new PostsService(lsService);
 
 /* -- Home page Handlers -- */
 
-export const homeSidebarHandler =
+export const sidebarHandler =
   useSidebar(
     document.getElementById("home-sidebar"),
     {
@@ -27,7 +28,7 @@ export const homeSidebarHandler =
     }
   );
 
-export const homeHeaderHandler =
+export const headerHandler =
   useHeader(document.getElementById("home-header"));
 
 export const createPostFormHandler =
@@ -40,65 +41,74 @@ export const createPostFormHandler =
     ],
   );
 
-export const homeCreatePostDialogHandler =
+export const createPostDialogHandler =
   useDialog(document.getElementById("create-post-form-dialog"));
 
-export const homePostsContainer =
+export const searchPostDialogHandler =
+  useDialog(document.getElementById("search-post-dialog"));
+
+export const searchPostContainerHandler =
+  usePostsContainer(
+    document.getElementById("search-dialog-posts-container"),
+    postsService
+  );
+
+export const searchPostFormHandler =
+  useForm(
+    document.getElementById("search-post-form"),
+    [{ name: "name" }]
+  )
+
+export const postsContainerHandler =
   usePostsContainer(
     document.getElementById("posts-container"),
-    postsService);
+    postsService
+  );
 
 /* --- */
 
 /* -- Handlers Configuration -- */
 
-homeSidebarHandler?.setNavItems(navItems);
+sidebarHandler?.setNavItems(navItems);
 
-homeHeaderHandler
+headerHandler
   ?.onButtonClick(
     (event) => {
-      const target = event.currentTarget;
-      const isHTMLElement = target instanceof HTMLElement;
-      const action = isHTMLElement ? target.dataset.action : null;
-      homeSidebarHandler?.handleAction(action);
+      const { currentTargetAction } = getDataFromEvent(event);
+      sidebarHandler?.handleAction(currentTargetAction);
     }
   );
 
-/**
- * 
- * @param {import("./handlers/formHandler.js").FieldData[]} fieldData 
- * @param {string} field 
- * @returns 
- */
-const findField = (fieldData, field) => {
-  return fieldData.find((d) => d.name === field)?.getValue();
-}
-
 createPostFormHandler
   ?.onSubmit((data) => {
-    const title = findField(data, "title");
-    const date = findField(data, "date");
-    const description = findField(data, "description");
-    
-    if (!title || !date) return;
-  
-    /** @type {import("./services/postsService.js").NewPost} */
-    const newPost = {
-      title: title,
-      date: date,
-      description: description,
-    }
-
-    postsService.createAndInsert(newPost);
-    homeCreatePostDialogHandler?.close();
+    const newPost = getNewPostFromFormData(data);
+    newPost && postsService.createAndInsert(newPost);
+    createPostDialogHandler?.close();
   });
 
-homeCreatePostDialogHandler
+searchPostFormHandler
+  ?.onSubmit((data) => {
+    console.log(data);
+  })
+
+searchPostFormHandler
+  ?.getField("name")
+  ?.addEventListener("input", (event) => {
+    const eventData = getDataFromEvent(event);
+    searchPostContainerHandler?.setFilter({title: eventData.value ?? ""});
+  })
+
+searchPostDialogHandler
+  ?.onOk(() => {
+    searchPostFormHandler?.submit();
+  })
+
+createPostDialogHandler
   ?.onOk(() => {
     createPostFormHandler?.submit();
   });
 
-homeCreatePostDialogHandler
+createPostDialogHandler
   ?.onClear(() => {
     createPostFormHandler?.reset();
   })
