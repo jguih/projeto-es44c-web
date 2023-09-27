@@ -25,6 +25,9 @@
 
 .sidebar-title {
   color: white;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .sidebar-close-btn:hover {

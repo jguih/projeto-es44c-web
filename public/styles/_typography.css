@@ -1,7 +1,7 @@
 
 /* -- Typography Styles -- */
 
-html {
+* {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -47,6 +47,20 @@ h3 {
 }
 
 /* Media Queries */
+
+@media screen and (max-width: 940px) {
+  h1 {
+    font-size: 2.6rem;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+  }
+  
+  h3 {
+    font-size: 1.8rem;
+  }
+}
 
 @media screen and (max-width: 360px) {
 

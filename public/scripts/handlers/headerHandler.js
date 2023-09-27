@@ -6,17 +6,13 @@
  */
 
 /**
- * @typedef {function} EventHandler
- */
-
-/**
  * @typedef {object} HeaderHandler
  * @prop {HTMLElement} header
  * @prop {(handler: ((event: Event) => void)) => void} onButtonClick
  */
 
 /**
- * Used to manipulate app's header
+ * Creates a context for the header element.
  * @param {HTMLElement | null} header - Header HTML Element
  * @param {useHeaderArgs} args - Optional arguments
  * @returns {HeaderHandler | undefined}
@@ -29,6 +25,8 @@ export const useHeader = (header, {
   if (!(header instanceof HTMLElement)) return;
 
   const headerButtons = header.getElementsByClassName("button");
+
+  // Add click event listeners for all buttons inside the header
   [...headerButtons].forEach((btn) => {
     const isBtn = btn instanceof HTMLButtonElement;
     if (isBtn)
@@ -38,8 +36,13 @@ export const useHeader = (header, {
       );
   })
 
+  /** @param {(event: Event) => void} handler */
+  const setOnButtonClick = (handler) => {
+    onButtonClick = handler;
+  }
+
   return {
     header,
-    onButtonClick: (handler) => { onButtonClick = handler },
+    onButtonClick: setOnButtonClick,
   }
 }

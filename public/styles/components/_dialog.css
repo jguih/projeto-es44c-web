@@ -16,14 +16,29 @@ dialog[open] {
   box-shadow: var(--box-shadow);
 }
 
+#search-post-dialog {
+  height: 100%;
+}
+
 .dialog-top {
   background-color: var(--primary-900);
   padding: 20px;
   color: white;
+
+  position: sticky;
+  top: 0px;
+  z-index: 1;
   
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 6px;
+}
+
+.dialog-title {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .dialog-content {

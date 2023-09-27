@@ -1,5 +1,7 @@
 //@ts-check
 
+import { getDataFromEvent } from "../utils.js";
+
 export const DIALOG_ACTIONS = {
   open: "dialog-open",
   close: "dialog-close",
@@ -22,9 +24,15 @@ export const DIALOG_ACTIONS = {
  * @prop {(handler: () => void) => void} onClear
  */
 
+/** @param {HTMLDialogElement} dialog */
+const close = (dialog) => dialog.close();
+
+/** @param {HTMLDialogElement} dialog */
+const showModal = (dialog) => dialog.showModal();
+
 /**
- * Used to manipulate the post creation dialog
- * @param {HTMLElement | null} dialog 
+ * Creates a context for the dialog.
+ * @param {HTMLElement | HTMLDialogElement | null} dialog 
  * @param {UseDialogArgs} args
  * @returns {DialogHandler | undefined}
  */
@@ -36,17 +44,12 @@ export const useDialog = (dialog, {
   if (!dialog) return;
   if (!(dialog instanceof HTMLDialogElement)) return;
 
-  const close = () => dialog.close();
-  const showModal = () => dialog.showModal();
-
   /** @param {MouseEvent} event */
   const handleOnClick = (event) => {
-    const target = event.currentTarget;
-    const isBtn = target instanceof HTMLButtonElement;
-    const action = isBtn ? target.dataset.action : undefined;
-    switch (action) {
+    const eventData = getDataFromEvent(event);
+    switch (eventData.currentTargetAction) {
       case DIALOG_ACTIONS.close: {
-        close();
+        close(dialog);
         break;
       }
       case DIALOG_ACTIONS.ok: {
@@ -60,7 +63,7 @@ export const useDialog = (dialog, {
     }
   };
 
-  // Add listeners to buttons inside the dialog
+  // Add listeners to all buttons inside the dialog
   [...dialog.getElementsByTagName("button")]
     .forEach(element => {
       element.addEventListener("click", handleOnClick);
@@ -68,8 +71,8 @@ export const useDialog = (dialog, {
 
   return {
     dialog,
-    showModal: () => showModal(),
-    close: () => close(),
+    showModal: () => showModal(dialog),
+    close: () => close(dialog),
     onOk: (handler) => { onOk = handler },
     onClear: (handler) => { onClear = handler },
   };

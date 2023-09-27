@@ -1,5 +1,7 @@
 //@ts-check
 
+import { getDataFromEvent } from "../utils.js";
+
 /**
  * @typedef {object} BaseArgs
  * @prop {boolean} expandBody
@@ -54,7 +56,7 @@ const showOverlay = () => overlay?.style.setProperty("display", "initial");
 const hideOverlay = () => overlay?.style.setProperty("display", "none");
 
 /**
- * 
+ * Opens the sidebar.
  * @param {HTMLElement} sidebar 
  * @param {Args} args
  */
@@ -75,7 +77,7 @@ const openSidebar = (sidebar, {
 }
 
 /**
- * 
+ * Closes the sidebar.
  * @param {HTMLElement} sidebar 
  * @param {BaseArgs} args
  */
@@ -90,7 +92,7 @@ const closeSidebar = (sidebar, {
 }
 
 /**
- * 
+ * Toggle the sidebar. Opens if closed, Closes if opened.
  * @param {HTMLElement} sidebar 
  * @param {Args} args
  */
@@ -114,7 +116,7 @@ const toggleSidebar = (sidebar, args) => {
 }
 
 /**
- * 
+ * Decides to open, close or toggle the sidebar based on the action param.
  * @param {string | undefined | null} action 
  * @param {HTMLElement} sidebar
  * @param {Args} args
@@ -140,7 +142,7 @@ const handleAction = (action, sidebar, args) => {
 }
 
 /**
- * 
+ * Creates a nav item.
  * @param {NavItem} navItem 
  * @returns {HTMLElement}
  */
@@ -152,18 +154,18 @@ const createNavItem = (navItem) => {
 }
 
 /**
- * Insert nav items inside the first nav of sidebar
- * @param {HTMLElement} nav 
+ * Insert nav items inside the parent node.
+ * @param {HTMLElement} parent 
  * @param {NavItem[]} navItems 
  */
-const setNavItems = (nav, navItems) => {
+const setNavItems = (parent, navItems) => {
   navItems.forEach((navItem) => {
-    nav.appendChild(createNavItem(navItem));
+    parent.appendChild(createNavItem(navItem));
   })
 }
 
 /**
- * Used to manipulate app's sidebar
+ * Used to manipulate app's sidebar.
  * @param {HTMLElement | null} sidebar
  * @param {useSidebarArgs} args
  * @returns {SidebarHandler | undefined}
@@ -181,26 +183,20 @@ export const useSidebar = (sidebar, {
   const args = { expandBody, width, shouldFocus, minWidthToFullScreen };
   const navs = sidebar.getElementsByTagName("nav");
   const hasNav = navs.length > 0;
-  const firstNav = hasNav ? navs.item(0) : undefined;
+  const firstNav = hasNav ? navs.item(0) : null;
 
-  // All <buttons/> inside the sidebar
   const sidebarBtns = sidebar.getElementsByTagName("button");
-  for (let i = 0; i < sidebarBtns.length; i++) {
-    // Add event listener for all buttons inside the sidebar
-    sidebarBtns
-      ?.item(i)
-      ?.addEventListener("click", (event) => {
-        const target = event.currentTarget;
-        const isHTMLElement = target instanceof HTMLElement;
-        const action = isHTMLElement ? target.dataset.action : null;
-        handleAction(action, sidebar, { ...args });
-      })
-  };
+  // Add event listener for all buttons inside the sidebar
+  [...sidebarBtns].forEach((button) => {
+    button.onclick = (event) => {
+      const eventData = getDataFromEvent(event);
+      handleAction(eventData.currentTargetAction, sidebar, { ...args });
+    }
+  });
 
   // Hides sidebar on overlay click
-  overlay?.addEventListener("click", (event) => {
-    closeSidebar(sidebar, { ...args });
-  });
+  if (overlay)
+    overlay.onclick = (ev) => closeSidebar(sidebar, { ...args });
 
   return {
     sidebar,

@@ -29,7 +29,7 @@ import { getField } from "../utils.js";
  */
 
 /**
- * 
+ * Returns a string based on Input/TextArea validation status.
  * @param {HTMLInputElement | HTMLTextAreaElement} field 
  * @returns {string}
  */
@@ -49,7 +49,7 @@ const getValidationMessage = (field) => {
 }
 
 /**
- * 
+ * Configure validation for each field.
  * @param {HTMLInputElement | HTMLTextAreaElement} field 
  * @param {Element | null} errorField
  */
@@ -71,7 +71,7 @@ const configureFieldValidationListeners = (field, errorField) => {
 }
 
 /**
- * 
+ * Gets data from Input or TextArea element.
  * @param {HTMLInputElement | HTMLTextAreaElement} field 
  * @return {FieldData}
  */
@@ -84,6 +84,7 @@ const getFieldData = (field) => {
 }
 
 /**
+ * Gets data from every Input and TextArea elements inside the form.
  * @param {HTMLFormElement} form
  * @param {FormField[]} fields 
  * @returns {FieldData[]}
@@ -103,12 +104,24 @@ const registerFields = (form, fields) => {
       fieldsData.push(getFieldData(formField));
       configureFieldValidationListeners(
         formField, formField.nextElementSibling
-      )
+      );
     }
   });
 
   return fieldsData;
 }
+
+/** @param {HTMLFormElement} form */
+const requestSubmit = (form) => form.requestSubmit();
+/** @param {HTMLFormElement} form */
+const reset = (form) => form.reset();
+/**
+ * 
+ * @param {FieldData[]} fieldsData 
+ * @param {string} fieldName 
+ */
+const getFieldFromFieldsData = (fieldsData, fieldName) => 
+  getField(fieldsData, fieldName);
 
 /**
  * This function expects the form to be structured as the example.
@@ -133,11 +146,10 @@ export const useForm = (form, fields, {
   if (!(form instanceof HTMLFormElement)) return;
   if (!fields) return;
 
+  // Disabled HTML standard validation
   form.noValidate = true;
-  const fieldsData = registerFields(form, fields);
 
-  const submit = () => form.requestSubmit();
-  const reset = () => form.reset();
+  const fieldsData = registerFields(form, fields);
 
   /** @param {SubmitEvent} event */
   const handleOnSubmit = (event) => {
@@ -150,12 +162,21 @@ export const useForm = (form, fields, {
 
   form.addEventListener("submit", handleOnSubmit);
 
+  /** @param {((data: FieldData[]) => void) | undefined} handler */
+  const setOnSubmit = (handler) => {
+    onSubmit = handler;
+  }
+
+  /** @param {string} fieldName */
+  const getField = (fieldName) => 
+    getFieldFromFieldsData(fieldsData, fieldName);
+
   return {
     form,
-    submit: () => submit(),
-    reset: () => reset(),
-    onSubmit: (/** @type {((data: FieldData[]) => void) | undefined} */ handler) => { onSubmit = handler },
-    getField: (/** @type {string} */ fieldName) => getField(fieldsData, fieldName),
+    submit: () => requestSubmit(form),
+    reset: () => reset(form),
+    onSubmit: setOnSubmit,
+    getField,
     fieldsData,
   }
 }

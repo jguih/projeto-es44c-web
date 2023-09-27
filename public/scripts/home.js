@@ -94,7 +94,8 @@ searchPostFormHandler
 searchPostFormHandler
   ?.getField("name")
   ?.addEventListener("input", (event) => {
-    console.log(getDataFromEvent(event));
+    const eventData = getDataFromEvent(event);
+    searchPostContainerHandler?.setFilter({title: eventData.value ?? ""});
   })
 
 searchPostDialogHandler
