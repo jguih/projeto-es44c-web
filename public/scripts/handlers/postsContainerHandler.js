@@ -47,6 +47,7 @@ const createDeleteButton = (post, postsService) => {
   const button = document.createElement("button");
   button.classList.add("post-delete-btn");
   button.appendChild(icon);
+  button.ariaLabel = "Delete post";
 
   button.addEventListener("click", (event) => {
     postsService.delete(post.id.toString());

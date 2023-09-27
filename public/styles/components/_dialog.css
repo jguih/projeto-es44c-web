@@ -16,7 +16,8 @@ dialog[open] {
   box-shadow: var(--box-shadow);
 }
 
-#search-post-dialog {
+#search-post-dialog,
+#delete-post-dialog {
   height: 100%;
 }
 

@@ -1,6 +1,8 @@
 //@ts-check
 
+import { sidebarHandler } from "../home.js";
 import { getDataFromEvent } from "../utils.js";
+import { SIDEBAR_STATE } from "./sidebarHandler.js";
 
 export const DIALOG_ACTIONS = {
   open: "dialog-open",
@@ -25,10 +27,18 @@ export const DIALOG_ACTIONS = {
  */
 
 /** @param {HTMLDialogElement} dialog */
-const close = (dialog) => dialog.close();
+const close = (dialog) => {
+  if(sidebarHandler && sidebarHandler.state === SIDEBAR_STATE.closed)
+    document.body.classList.remove("overflow-hidden");
+  dialog.close();
+}
 
 /** @param {HTMLDialogElement} dialog */
-const showModal = (dialog) => dialog.showModal();
+const showModal = (dialog) => {
+  if(sidebarHandler && sidebarHandler.state === SIDEBAR_STATE.closed)
+    document.body.classList.add("overflow-hidden");
+  dialog.showModal();
+}
 
 /**
  * Creates a context for the dialog.

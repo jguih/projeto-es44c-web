@@ -26,6 +26,7 @@ import { getDataFromEvent } from "../utils.js";
 /**
  * @typedef {object} SidebarHandler
  * @prop {HTMLElement} sidebar
+ * @prop {string} [state]
  * @prop {() => void} openSidebar
  * @prop {() => void} closeSidebar
  * @prop {() => void} toggleSidebar
@@ -70,6 +71,7 @@ const openSidebar = (sidebar, {
     minWidthToFullScreen &&
     window.innerWidth <= minWidthToFullScreen
   ) width = "100%";
+  document.body.classList.add("overflow-hidden");
   sidebar.style.width = width;
   sidebar.dataset.state = SIDEBAR_STATE.opened;
   if (shouldFocus) showOverlay();
@@ -85,6 +87,7 @@ const closeSidebar = (sidebar, {
   expandBody,
   shouldFocus,
 }) => {
+  document.body.classList.remove("overflow-hidden");
   sidebar.style.width = "0px";
   sidebar.dataset.state = SIDEBAR_STATE.closed;
   if (shouldFocus) hideOverlay();
@@ -200,6 +203,7 @@ export const useSidebar = (sidebar, {
 
   return {
     sidebar,
+    state: sidebar.dataset.state,
     openSidebar: () => openSidebar(sidebar, { ...args }),
     closeSidebar: () => closeSidebar(sidebar, { ...args }),
     toggleSidebar: () => toggleSidebar(sidebar, { ...args }),

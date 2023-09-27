@@ -1,5 +1,5 @@
 //@ts-check
-import { createPostDialogHandler, searchPostDialogHandler } from './home.js';
+import { createPostDialogHandler, deletePostDialogHandler, searchPostDialogHandler } from './home.js';
 
 /** 
  * Defines all navigation items for the sidebar
@@ -16,6 +16,6 @@ export const navItems = [
   },
   {
     label: "Delete a post",
-    onClick: (event) => null,
+    onClick: (event) => deletePostDialogHandler?.showModal(),
   }
 ]
