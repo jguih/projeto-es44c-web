@@ -17,10 +17,6 @@ p {
   padding: 0;
 }
 
-p {
-  word-wrap: break-word;
-}
-
 label,
 .button-text,
 button {
