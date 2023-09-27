@@ -168,9 +168,6 @@ const render = (parent, postsData, postsService) => {
   return posts;
 }
 
-/** @type {PostsFilter} */
-let postsContainerFilter;
-
 /**
  * This function creates a context for the specified posts container. Posts will be created inside the container as the example.
  * @param {HTMLElement | null} postsContainer - Parent container where the posts will be inserted. 
@@ -196,6 +193,9 @@ export const usePostsContainer = (
 ) => {
   if (!postsContainer) return;
   if (!(postsContainer instanceof HTMLElement)) return;
+
+  /** @type {PostsFilter} */
+  let postsContainerFilter;
 
   const contextRender = () => 
     render(
