@@ -7,14 +7,13 @@
 }
 
 .post {
-  --border-bottom-size: 3px;
+  --border-bottom-size: 2px;
   display: block;
   position: relative;
   margin: 48px 0;
   padding: 12px;
-  border-radius: 12px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  border-bottom: solid transparent var(--border-bottom-size);
+  border-radius: 8px;
+  border-bottom: solid var(--primary-900) var(--border-bottom-size);
 }
 
 .post-delete-btn {
@@ -41,7 +40,7 @@
 }
 
 .post-delete-btn:hover {
-  background-color: var(--primary-600);
+  background-color: var(--primary-500);
 }
 
 .post-delete-btn:active {
@@ -49,11 +48,11 @@
 }
 
 .post:hover {
-  border-bottom: solid var(--primary-900) var(--border-bottom-size);
+  border-bottom: solid var(--secondary-900) var(--border-bottom-size);
 }
 
 .post:active {
-  border-bottom: solid var(--secondary-900) var(--border-bottom-size);
+  border-bottom: solid var(--secondary-600) var(--border-bottom-size);
 }
 
 .post-title {

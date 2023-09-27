@@ -7,7 +7,7 @@ import { createPostDialogHandler, deletePostDialogHandler, searchPostDialogHandl
  * */
 export const navItems = [
   {
-    label: "Create post",
+    label: "Create a post",
     onClick: (event) => createPostDialogHandler?.showModal(),
   },
   {
