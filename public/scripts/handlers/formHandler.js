@@ -39,7 +39,7 @@ const getValidationMessage = (field) => {
     return "Field required";
   }
   if (field.validity.badInput) {
-    return "Bad input";
+    return "Value is invalid";
   }
   if (field.validity.patternMismatch) {
     return "Wrong format";

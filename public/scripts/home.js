@@ -56,7 +56,7 @@ export const searchPostContainerHandler =
 export const searchPostFormHandler =
   useForm(
     document.getElementById("search-post-dialog-form"),
-    [{ name: "title" }]
+    [{ name: "title" }, { name: "date" }]
   )
 
 export const deletePostDialogHandler =
@@ -99,8 +99,15 @@ searchPostFormHandler
   ?.getField("title")
   ?.addEventListener("input", (event) => {
     const eventData = getDataFromEvent(event);
-    searchPostContainerHandler?.setFilter({title: eventData.value ?? ""});
+    searchPostContainerHandler?.setFilter({ title: eventData.value ?? "" });
   });
+
+searchPostFormHandler
+  ?.getField("date")
+  ?.addEventListener("input", (event) => {
+    const eventData = getDataFromEvent(event);
+    searchPostContainerHandler?.setFilter({ date: eventData.value ?? "" });
+  })
 
 createPostDialogHandler
   ?.onOk(() => {
