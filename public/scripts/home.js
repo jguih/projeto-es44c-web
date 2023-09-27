@@ -96,21 +96,11 @@ createPostFormHandler
   });
 
 searchPostFormHandler
-  ?.onSubmit((data) => {
-    console.log(data);
-  })
-
-searchPostFormHandler
   ?.getField("title")
   ?.addEventListener("input", (event) => {
     const eventData = getDataFromEvent(event);
     searchPostContainerHandler?.setFilter({title: eventData.value ?? ""});
-  })
-
-searchPostDialogHandler
-  ?.onOk(() => {
-    searchPostFormHandler?.submit();
-  })
+  });
 
 createPostDialogHandler
   ?.onOk(() => {
@@ -120,6 +110,6 @@ createPostDialogHandler
 createPostDialogHandler
   ?.onClear(() => {
     createPostFormHandler?.reset();
-  })
+  });
 
 /* --- */
